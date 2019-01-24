@@ -1,0 +1,9 @@
+from pyspark.sql import SparkSession from pyspark.sql.functions import col
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df = spark.read.json("most-modals-won.json", format="json")
+    df.printSchema()
+    df.select("Athlete", col("Total Medals").alias("Medals")).write.save("athlete-medals.parquet", format="parquet")
+    spark.stop()
