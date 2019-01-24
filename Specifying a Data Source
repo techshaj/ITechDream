@@ -1,0 +1,14 @@
+from pyspark.sql import SparkSession from pyspark.sql.functions import col
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df = spark.read.option("header", True).csv("iris.csv")
+    df.printSchema()
+    dfIris = df.select(col("sepal_length").cast("Double"),
+                                    col("sepal_width").cast("Double"),
+                                    col("petal_length").cast("Double"),
+                                    col("petal_width").cast("Double"),
+                                    col("species"))
+    dfIris.write.save("iris-json", format="json")
+    spark.stop()
