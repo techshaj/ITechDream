@@ -1,0 +1,4 @@
+val df = sqlContext.load("/tmp/students.parquet")
+df.select("name", "age").save("/tmp/nameAndAge.parquet")
+df.select("name", "age").save("/tmp/nameAndAge.json", "json")
+df.select("name", "age").save("/tmp/nameAndAge.json", "json", SaveMode.ErrorExist/SaveMode.Append/SaveMode.Overwrite/SaveMode.Ignore)
