@@ -1,0 +1,4 @@
+val sqlContext2 = new org.apache.spark.sql..hive.HiveContext(sc)
+sqlContext.sql("CREATE TABLE IF NOT EXIST kv1 (key INT, value STRING)")
+sqlContext.sql("LOAD DATA LOCAL INPATH '/tmp/kv1.txt' INTO TABLE kv1")
+sqlContext.sql("FROM kv1 SELECT key,value").collect().foreach(println)
