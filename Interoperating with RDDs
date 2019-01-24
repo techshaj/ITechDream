@@ -1,0 +1,6 @@
+import sqlContext.implicits.
+case class Student(name: String, age: Int, major: String)
+val students = sc.textFile("/tmp/Students.txt").map(.split(",")).map(s => Student(s(0), s(1).trim.toInt, s(2))).toDF()
+students.registerTempTable("students")
+val lawStudents = sqlContext.sql("select name from Students where major = 'law'")
+lawStudents.map(t => "Name: " + t(0)).collect().foreach(println)
