@@ -1,0 +1,13 @@
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+
+import sqlContext.createSchemaRDD
+
+case class Person(name:String, age:Int, gender:String, location:String)
+
+val persons = sc.textFile("People.txt").map(_.split('|').map(p => Person(p(0), p(1).trim.toInt, p(2), p(3)))
+
+persons.registerTempTable("persons")
+
+val kanchi = sqlContext.sql("SELECT name from persons WHERE location='Kanchipuram'")
+
+kanchi.map(p => "Name: " + p(0)).collect().foreach(println)
