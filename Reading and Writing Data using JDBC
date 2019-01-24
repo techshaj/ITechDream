@@ -1,0 +1,12 @@
+import java.sql._
+import org.apache.spark.rdd.JdbcRDD
+Class.forName("org.apache.derby.jdbc.EmbeddedDriver")
+val conn = DriverManager.getConnection("jdbc:derby:target/SPARKSQL;create=true")
+val create = conn.createStatement
+create.execute("CREATE TABLE MY_TABLE2(ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), DATA INTEGER)")
+create.close()
+val insert = conn.prepareStatement("INSERT INTO MY_TABLE2(DATA) VALUES(?)")
+(1 to 100).foreach { t => insert.setInt(1, i * 2) insert.executeUpdate}
+insert.close()
+val jdbcDF = sqlContext.load("jdbc", Map("url" -> "jdbc.derby:target/SPARKSQL", "dbtable" -> "MY_TABLE2"))
+jdfcDF.select("data").collect().foreach(println)
