@@ -1,0 +1,11 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Persistent Tables").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df= spark.read.json("iris.json")
+    df.printSchema()
+    print(df.count())
+    df.write.saveAsTable("iris_table")
+    spark.sql("select count(*) from iris_table").show()
+    spark.stop()
