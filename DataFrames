@@ -1,0 +1,12 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello, Spark!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df = spark.read.json('internet-users-per-100.json')
+    df.printSchema()
+    df.show()
+    df.select(df['n_'], df['n2015']).show()
+    df.filter(df['n2015'] > 90).show()
+    df.filter(df['n2015'] < 90).show()
+    spark.stop()
