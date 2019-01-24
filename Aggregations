@@ -1,0 +1,13 @@
+from pyspark.sql import SparkSession from pyspark.sql.functions import col, avg, max, min
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello, Spark!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df = spark.read.json('internet-users-per-100.json')
+    df.printSchema()
+    users = df.select(col("n_").alias("country"), col("n2015").cast("float").alias("per100"))
+    users.printSchema()
+    users.select(avg("per100")).show()
+    users.select(max("per100")).show()
+    users.select(min("per100")).show()
+    spark.stop()
