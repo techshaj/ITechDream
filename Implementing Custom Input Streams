@@ -1,0 +1,51 @@
+/*Implementing Custom Input Streams*/
+/***********************************/
+import java.net.Socket
+import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.{SparkConf, Logging}
+import org.apache.spark.storage.StorageLevel
+import org.apache.spark.streaming.receiver.Receiver
+
+object CustomReceiver{
+  def main(args: Array[String]): Unit{
+    val sparkConf = new SparkConf().setAppName("My Custom Receiver")
+    val ssc = new StreamingContext(sparkConf, Seconds(1))
+    val lines = ssc.receiverStream(new CustomReceiver(args(0), args(1)).toInt)
+    val words = lines.flatMap(_.split(" "))
+  }
+}
+
+class CustomReceiver(host: String, port: int) extends Receiver[String](StorageLevel.MEMORY_AND_DISK_SER_with Logging{
+  def onStart(): Unit ={
+    //start threads to receive data
+    new Thread("Socker Receiver"){
+      override def run(){receive()}
+    }.start()
+  }
+  
+  def onStop(): Unit = {
+    //We would stop thread
+  }
+  
+  private def receive():Unit = {
+    var socket: Socket = null
+    var userInput: String = null
+    
+    try{
+      socket = new Socket(host, port)
+      val reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"))
+      userInput = reader.readLine()
+      
+      while(!isStopped() && userInput != null){
+        store(UserInput)
+        userInput = reader.readLine()
+      }
+      
+      reader.close()
+      socket.close()
+      restart("We are trying to connect again")
+    }catch{
+      case e: Exception =>
+    }
+  }
+})
