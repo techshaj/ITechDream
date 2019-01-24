@@ -1,0 +1,4 @@
+val sqlContext2 = org.apache.spark.sql.SQLContext(sc)
+val df = sqlContext2.jsonFile("example/src/main/resources/people.json")
+df.show()
+df.printSchema()
