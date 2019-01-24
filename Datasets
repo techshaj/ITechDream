@@ -1,0 +1,3 @@
+scala> case class Iris(sepal_length: Double, sepal_width: Double, petal_length: Double, petal_width: Double, species: String)
+scala> val irisDS = Seq(Iris(5.0, 3.0, 1.5, 0.3, "setosa")).toDS() scala> irisDS.show() scala> val irisDS = spark.read.json("iris.json").as[Iris]
+scala> irisDS.show()
