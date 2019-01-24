@@ -1,0 +1,13 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Parquet Files").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df= spark.read.json("iris.json")
+    df.printSchema()
+    df.write.parquet("iris.parquet")
+    irisParquet= spark.read.parquet("iris.parquet")
+    irisParquet.createOrReplaceTempView("iris")
+    setosadf= spark.sql("select * from iris where species = 'setosa'")
+    setosadf.show()
+    spark.stop()
