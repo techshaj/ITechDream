@@ -1,0 +1,11 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[2]").appName("Iris").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    iris = spark.read.option("header", True).csv("iris.csv")
+    iris.printSchema()
+    iris.createGlobalTempView("iris")
+    spark.sql("SELECT * FROM global_temp.iris").show()
+    spark.newSession.sql("SELECT * FROM global_temp.iris").show()
+    spark.stop()
