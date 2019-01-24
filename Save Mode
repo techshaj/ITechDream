@@ -1,0 +1,10 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("SaveMode").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df= spark.read.json("iris.json")
+    petalsdf= df.select("petal_length", "petal_width", "species")
+    #modes: append, error, ignore, overwrite
+    petalsdf.write.mode("error").json("iris-petals")
+    spark.stop()
