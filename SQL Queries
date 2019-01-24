@@ -1,0 +1,14 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello, Spark SQL!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df = spark.read.json('internet-users-per-100.json')
+    df.createOrReplaceTempView("users")
+    sdf = spark.sql("select * from users where n2015 > 90")
+    sdf.show()
+    spark.sql("select count(*) from users").show()
+    print(df.count())
+    spark.sql("select * from users order by n2015 desc limit 5").show()
+    spark.sql("select * from users order by n_ asc limit 5").show()
+    spark.stop()
