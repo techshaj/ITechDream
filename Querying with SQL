@@ -1,0 +1,14 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Hello, Spark SQL!").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    iris= spark.sql("select * from parquet. 'iris.parquet'")
+    iris.printSchema()
+    print(iris.count())
+    iris.show()
+    users= spark.sql("select * from json. 'internet-users-per-100.json'")
+    users.printSchema()
+    print(users.count())
+    users.show()
+    spark.stop()
