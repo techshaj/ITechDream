@@ -1,0 +1,11 @@
+from pyspark.sql import SparkSession
+
+if __name__ == "__main__":
+    spark = SparkSession.builder.master("local[*]").appName("Partitioning").getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
+    df= spark.read.json("iris.json")
+    df.printSchema()
+    df.write.partitionBy("species").saveAsTable("iris_partitions")
+    spark.sql("show partitions iris_partitions").show()
+    spark.sql("select * from iris_partitions where species='setosa'").show()
+    spark.stop()
