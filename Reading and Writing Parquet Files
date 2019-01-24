@@ -1,0 +1,10 @@
+import.sqlContext.implicits.
+case class Student(name: String, age: Int, major: String)
+val students = sc.textFile("/tmp/Students.txt").map(.split(",")).map(s => Student(s(0), s(1).trim.toInt, s(2))).toDF()
+students.saveAsParquetFile("students.parquet")
+val studentParquetFile = sqlContext.parquetFile("students.parquet")
+studentParquetFile.registerTempTable("student_parquet")
+val under30 = sqlContext.sql("select name from student_parquet where age < 30")
+under30.map(t => "Name: " + t(0)).collect().foreach(println)
+val simpleDF = sc.makeRDD(1 to 100).map(i => (i, i * 2)).toDF("single", "double")
+simpleDF.saveAsParquetFile("/tmp/numbers")
