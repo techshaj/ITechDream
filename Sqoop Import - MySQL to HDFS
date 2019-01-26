@@ -1,1 +1,1 @@
-sqoop import --connect jdbc:mysql://ip-172.168.1.155/sqoopex --table widgets -m 2 --username sqoopuser -P --split-by id
+sqoop import --connect jdbc:mysql://ip-172-31-20-247/sqoopex --table widgets -m 2 --username sqoopuser -P --split-by id
