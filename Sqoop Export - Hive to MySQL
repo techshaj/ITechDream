@@ -1,0 +1,27 @@
+# Copy sales.log locally:
+hadoop fs -copyToLocal /data/hive/sales.log
+
+# Create Hive Table:
+CREATE TABLE Sales_Test(widget_id INT, qty INT, street STRING, city STRING, state STRING, zip INT, sale_date STRING) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+# Load Data:
+LOAD DATA LOCAL INPATH sales.log INTO TABLE Sales_Test;
+
+# Select rows to see  data:
+select * from sales_test;
+
+# Create MYSQL Table:
+CREATE TABLE Sales_Test(widget_id INT, qty INT, street varchar(100), city varchar(100), state varchar(100), zip INT, 
+sale_date varchar(100))
+
+# Sqoop Export
+sqoop export --connect jdbc:mysql://ip-172-31-13-154/sqoopex -m 1 --table sales_test --export-dir /apps/hive/warehouse/sales_test 
+--input-fields-terminated-by ',' --username sqoopuser -P
+
+# Check Result from MYSQL 
+mysql -h ip-172-31-13-154 -u sqoopuser -p
+
+use sqoopex;
+
+select * from Sales_Test;
