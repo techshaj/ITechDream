@@ -1,0 +1,1 @@
+sqoop import --connect jdbc:mysql://ip-172-31-13-154/sqoopex --table widgets --hbase-table 'widgets' --column-family cf2 --username sqoopuser -P --hbase-create-table --columns id,widget_name,price --hbase-row-key 'widget_name' -m 1
