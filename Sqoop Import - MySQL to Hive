@@ -1,0 +1,15 @@
+#Get the detail of MySQL server using "My Lab" tab
+
+# Check the MySQL: Connect
+mysql -u sqoopuser -p -h ip-172-31-13-154 sqoopex
+
+#Check the MySQL: Explore The table in MySQL using 
+select * from widgets;
+
+# Import - It might ask for password. Keep the password
+sqoop import --connect jdbc:mysql://ip-172-31-13-154/sqoopex --table widgets -m 2 --hive-import --username sqoopuser -P --hive-database sqoop_testing
+
+
+#Start hive
+use sqoop_testing;
+select * from widgets;
