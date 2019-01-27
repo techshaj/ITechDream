@@ -7,7 +7,6 @@ nano conf/flume.properties
 #Launch the flume agent
 flume-ng agent --conf conf --conf-file conf/flume.properties --name a1 Dflume.root.logger=INFO,console
 
-
 # Open a new console and Connect to the same port that you defined in config
 nc localhost 44443
 
