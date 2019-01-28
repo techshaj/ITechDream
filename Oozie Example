@@ -1,0 +1,13 @@
+1. Login to Web Console
+
+2. Copy Oozie example
+	 /usr/hdp/current/oozie-client/doc/oozie-examples.tar.gz (to your home directory in web console)
+
+3. Extract files from tar
+	 car -zxvf oozie-examples.tar.gz
+
+4. Edit examples/apps/map-reduce/job.properties and set:
+	 nameNode = hdfs://ip-172-31-38-146.ec2.internal:8020
+	 jobTracker = ip-172-31-38-146.ec2.internal:8050
+	 queueName = default
+	 examplesRoot = examples
