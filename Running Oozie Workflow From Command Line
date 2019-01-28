@@ -11,3 +11,12 @@
 	 jobTracker = ip-172-31-38-146.ec2.internal:8050
 	 queueName = default
 	 examplesRoot = examples
+	 
+5. Copy the examples directory to HDFS
+	hadoop fs -copyFromLocal examples
+	
+6. Run the job
+	oozie job -oozie http://ip-172-31-13-154.ec2.internal:11000/oozie -config examples/app/map-reduce/job.properties -run
+	
+7. Check the job status
+	oozie job-oozie http://ip-172-31-13-154.ec2.internal:11000/oozie -info job_id
