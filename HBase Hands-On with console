@@ -1,0 +1,25 @@
+#Create Table:
+create 'techshaj4510_console', 'contents', 'anchors'
+
+#Insert Table
+put 'techshaj4510_console', 'com.cnn.www', 'contents:', '<h1>Welcome to CNN - Breaking news. </h1>'
+put 'techshaj4510_console', 'com.cnn.www', 'anchors:si.com', 'CNN'
+put 'techshaj4510_console', 'com.cnn.www', 'anchors:microsoft.com', 'CNN News'
+
+#Select Table
+scan 'techshaj4510_console'
+
+#Delete Table
+disable 'techshaj4510_console'
+
+#Drop Table
+drop 'techshaj4510_console'
+
+#Try to select again
+scan 'techshaj4510_console'
+
+#Show the all list
+list
+
+#Show fetching list
+list 'tech.*'
