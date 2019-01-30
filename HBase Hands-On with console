@@ -1,3 +1,6 @@
+#Open HBase Shell
+hbase shell
+
 #Create Table:
 create 'techshaj4510_console', 'contents', 'anchors'
 
