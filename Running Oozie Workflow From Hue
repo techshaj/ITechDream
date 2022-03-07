@@ -1,0 +1,19 @@
+# In Hue, Get the location of mysql Jar
+/data/jars/mysql-connector-java.jar
+
+# Go to Workflows -> Editors
+
+# Click on Create Button on right site
+
+#Drag and drop sqoop1
+
+# Set the password in following command and copy paste
+# Also, change the HDFS absolute location
+import --connect jdbc:mysql://ip-172-31-13-154:3306/sqoopex --username sqoopuser --password NHkkP876rp --table widgets --target-dir hdfs:///user/sandeepgiri9034/widgets_import
+
+# Add the files of mysql connector
+
+# Save and Submit
+
+# Open File Browser check if the files are created.
+

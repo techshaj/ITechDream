@@ -1,0 +1,18 @@
+1. Open Hue
+
+2. Create a file "hive_testing.hql" using nano or vi editor
+	 use sg;
+	 insert overwrite directory '/user/techshaj4510/techshaj_hive_table' select * from employees;
+	
+3. Copy hive_testing.sql to your home directory in hdfs
+	 hadoop fs -copyFromLocal hive_testing.hql
+	 hadoop fs -ls
+	
+4. Go to Hue and create new Workflows
+	 Rename "My Workflow"
+	 Drag Hive2 and select the path of hive_testing.hql
+	
+5. Save and Submit the workflow
+
+6. Check hive_testing.hql file in user directory (/user/techshaj4510/techshaj_hive_table)
+   hadoop fs -cat techshaj_hive_table/0*

@@ -1,0 +1,18 @@
+1. Open Web Console
+
+2. Create a file "testing.sh" using nano or vi editor
+	 #!/bin/bash
+	 echo "Wel to Shell Script Example"
+	
+3. Run "testing.sh"
+	 /bin/bash testing.sh
+	
+4. Copy "testing.sh" in your home directory in hdfs	
+	 hadoop fs -copyFromLocal testing.sh
+	
+5. Go to Hue and create new Workflow
+	 Rename "My Workflow"
+	 Drag "Shell Action" and select the path of testing.sh
+	 Note: testing.sh path should choose in File path also
+	
+6. Save and Submit the workflow
